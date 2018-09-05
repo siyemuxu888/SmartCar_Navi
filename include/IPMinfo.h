@@ -20,19 +20,22 @@ typedef struct CameraInfo
 	//int imageHeight;
 }CameraInfo;
 
-//摄像头内参矩阵跟畸变系数
-static const Matx33d intrinsic_matrix =
+//摄像头内参矩阵
+const Matx33d intrinsic_matrix =
 {
 	288.9274806169603, 0, 320.1509020795118,
 	0, 289.9074502886161, 260.9787613714533,
 	0, 0, 1
 };
-static const Vec4d distortion_coeffs = { -0.0739035, 0.0518974, -0.0328777, 0.0039241 };
+const Vec4d distortion_coeffs = { -0.0739035, 0.0518974, -0.0328777, 0.0039241 };//摄像头畸变系数
 
-void TransformImage2Ground(const CvMat *inPoints,
-	CvMat *outPoints, const CvMat * transMat);
+//逆透视变换函数
+void TransformImage2Ground(const CvMat *inPoints, CvMat *outPoints, const CvMat * transMat);
 
+//生成透视变换矩阵函数
 float * CreateMatrix(const CameraInfo * cameraInfo);
+
+//计算摄像头到两条直线的距离还有两条直线在摄像头坐标系下的倾角
 void RealLineParameter(Point2f & start, Point2f & end, float * parameter);
 
 #endif
